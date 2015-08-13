@@ -1,0 +1,10 @@
+django-tagging==0.3.4
+django==1.6.2
+git+git://github.com/graphite-project/graphite-web.git@57ff2e36c20d0b7d1d005cf7577f31767dfc8e2a
+python-memcached==1.54
+twisted<12.0
+gunicorn==19.3.0
+whisper==0.9.12
+pyparsing==2.0.3
+pytz==2015.4
+cairocffi==0.7.2
