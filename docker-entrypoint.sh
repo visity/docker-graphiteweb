@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 # Add gunicorn as command if needed
 if [ "${1:0:1}" = '-' ]; then
