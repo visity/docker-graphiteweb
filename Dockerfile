@@ -10,8 +10,8 @@ COPY      requirements.txt /tmp/
 RUN       pip install -r /tmp/requirements.txt
 
 # Create users
-RUN       addgroup --gid 30107 graphiteweb
-RUN       useradd -u 30107 -g graphiteweb -s /bin/false graphiteweb
+RUN       addgroup --gid 30106 graphiteweb
+RUN       useradd -u 30106 -g graphiteweb -s /bin/false graphiteweb
 
 # Copy configs into place and create needed dirs
 COPY      local_settings.py /opt/graphite/webapp/graphite/
