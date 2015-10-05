@@ -10,7 +10,7 @@ Example, first start the carbon docker (see also visity/carbon):
 	
 Then start the graphiteweb docker:
 
-	docker run -d --name graphiteweb --link carbon --volumes-from carbon -p 80:80 visity/graphiteweb
+	docker run -d --name graphiteweb --link carbon:carbon --volumes-from carbon -p 80:80 visity/graphiteweb
 
 If you want NGINX to front graphite web, start the graphiteweb docker without the port mapping and start the standard nginx docker with the volumes from this docker:
 
