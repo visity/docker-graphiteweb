@@ -18,6 +18,7 @@ RUN       useradd -u 30106 -g graphiteweb -s /bin/false graphiteweb
 # Copy configs into place and create needed dirs
 COPY      local_settings.py /opt/graphite/webapp/graphite/
 RUN       mkdir -p /opt/graphite/storage/log/webapp
+RUN       cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/webapp/graphite_wsgi.py
 
 # Setup DB for graphite webapp
 RUN	      export PYTHONPATH=$PYTHONPATH:/opt/graphite/webapp && \
@@ -42,4 +43,4 @@ VOLUME    /etc/nginx/conf.d
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD       ["gunicorn", "--bind=0.0.0.0:80", "graphite.wsgi", "--user=graphiteweb", "--settings=graphite.settings"]
+CMD       ["gunicorn", "--bind=0.0.0.0:80", "graphite_wsgi:application", "--user=graphiteweb", "--settings=graphite.settings"]
