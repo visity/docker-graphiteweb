@@ -8,6 +8,8 @@ RUN       apt-get update && \
           
 COPY      requirements.txt /tmp/
 RUN       pip install -r /tmp/requirements.txt
+# For some reason the default install folder is now no longer at /opt/graphite. Override.
+RUN       pip install --install-option="--prefix=/opt/graphite" graphite-web==0.9.15
 
 # Create users
 RUN       addgroup --gid 30100 graphiteweb
