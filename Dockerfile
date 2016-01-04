@@ -10,8 +10,8 @@ COPY      requirements.txt /tmp/
 RUN       pip install -r /tmp/requirements.txt
 
 # Create users
-RUN       addgroup --gid 30107 graphiteweb
-RUN       useradd -u 30107 -g graphiteweb -s /bin/false graphiteweb
+RUN       addgroup --gid 30100 graphiteweb
+RUN       useradd -u 30106 -g graphiteweb -s /bin/false graphiteweb
 
 # Copy configs into place and create needed dirs
 COPY      local_settings.py /opt/graphite/webapp/graphite/
@@ -26,8 +26,7 @@ RUN	      export PYTHONPATH=$PYTHONPATH:/opt/graphite/webapp && \
 RUN       mkdir -p /etc/nginx/conf.d
 COPY      nginx-graphite.conf /etc/nginx/conf.d/default.conf
 
-# This has to be done after running syncdb to make sure all files get right owner
-RUN       chown -R graphiteweb:graphiteweb /opt/graphite
+COPY      docker-entrypoint.sh /
 
 # Default port
 EXPOSE    80
@@ -39,4 +38,6 @@ ENV       TERM xterm
 VOLUME    /opt/graphite/webapp/content
 VOLUME    /etc/nginx/conf.d
 
-CMD       /usr/local/bin/gunicorn -b0.0.0.0:80 graphite.wsgi -u graphiteweb --settings=graphite.settings
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD       ["gunicorn", "--bind=0.0.0.0:80", "graphite.wsgi", "--user=graphiteweb", "--settings=graphite.settings"]

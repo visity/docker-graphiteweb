@@ -2,7 +2,7 @@
 
 This docker provides access to the graphite web part of the graphite stack. It does not include the carbon/whisper part.
 
-It is the intent to run this together with the visity/carbon, visity/statsd and grafana dockers.
+It is the intent to run this together with the visity/carbon, visity/statsd and grafana dockers. Basically only the API part of the graphiteweb Django application is used. No users are created on graphite web and no volume is mapped for the database storage.
 
 Example, first start the carbon docker (see also visity/carbon):
 
