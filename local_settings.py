@@ -29,9 +29,10 @@ SECRET_KEY = 'adlkfjasdio2mzkaoqwjke23o2i3432hoi234hewr'
 #DEFAULT_CACHE_DURATION = 60
 
 # Logging
+#LOG_ROTATION = True
+#LOG_ROTATION_COUNT = 1
 #LOG_RENDERING_PERFORMANCE = True
 #LOG_CACHE_PERFORMANCE = True
-#LOG_METRIC_ACCESS = True
 
 # Enable full debug page display on exceptions (Internal Server Error pages)
 #DEBUG = True
@@ -49,8 +50,20 @@ SECRET_KEY = 'adlkfjasdio2mzkaoqwjke23o2i3432hoi234hewr'
 # as every webapp in the cluster should use the exact same values to prevent
 # unneeded cache misses. Set to [] to disable caching of images and fetched data
 #MEMCACHE_HOSTS = ['10.10.10.10:11211', '10.10.10.11:11211', '10.10.10.12:11211']
-#DEFAULT_CACHE_DURATION = 60 # Cache images and data for 1 minute
 
+# Metric data and graphs are cached for one minute by default. If defined,
+# DEFAULT_CACHE_POLICY is a list of tuples of minimum query time ranges mapped
+# to the cache duration for the results. This allows for larger queries to be
+# cached for longer periods of times. All times are in seconds. If the policy is
+# empty or undefined, all results will be cached for DEFAULT_CACHE_DURATION.
+#DEFAULT_CACHE_DURATION = 60 # Cache images and data for 1 minute
+#DEFAULT_CACHE_POLICY = [(0, 60), # default is 60 seconds
+#                        (7200, 120), # >= 2 hour queries are cached 2 minutes
+#                        (21600, 180)] # >= 6 hour queries are cached 3 minutes
+#MEMCACHE_KEY_PREFIX = 'graphite'
+
+# Set URL_PREFIX when deploying graphite-web to a non-root location
+#URL_PREFIX = '/graphite'
 
 #####################################
 # Filesystem Paths #
@@ -64,7 +77,7 @@ SECRET_KEY = 'adlkfjasdio2mzkaoqwjke23o2i3432hoi234hewr'
 # of these is relative to GRAPHITE_ROOT
 #CONF_DIR = '/opt/graphite/conf'
 #STORAGE_DIR = '/opt/graphite/storage'
-#CONTENT_DIR = '/opt/graphite/webapp/content'
+#STATIC_ROOT = '/opt/graphite/static'
 
 # To further or fully customize the paths, modify the following. Note that the
 # default settings for each of these are relative to CONF_DIR and STORAGE_DIR
@@ -113,6 +126,11 @@ SECRET_KEY = 'adlkfjasdio2mzkaoqwjke23o2i3432hoi234hewr'
 #LDAP_BASE_USER = "CN=some_readonly_account,DC=mycompany,DC=com"
 #LDAP_BASE_PASS = "readonly_account_password"
 #LDAP_USER_QUERY = "(username=%s)"  #For Active Directory use "(sAMAccountName=%s)"
+#
+# User DN template to use for binding (and authentication) against
+# the LDAP server. %(username) is replaced with the username supplied at
+# graphite login.
+#LDAP_USER_DN_TEMPLATE = "CN=%(username)s,OU=users,DC=mycompany,DC=com"
 #
 # If you want to further customize the ldap connection options you should
 # directly use ldap.set_option to set the ldap module's global options.
@@ -202,6 +220,7 @@ SECRET_KEY = 'adlkfjasdio2mzkaoqwjke23o2i3432hoi234hewr'
 #REMOTE_FIND_TIMEOUT = 3.0             # Timeout for metric find requests
 #REMOTE_FETCH_TIMEOUT = 6.0            # Timeout to fetch series data
 #REMOTE_RETRY_DELAY = 60.0             # Time before retrying a failed remote webapp
+#REMOTE_EXCLUDE_LOCAL = False          # Try to detect when a cluster server is localhost and don't forward queries
 #REMOTE_READER_CACHE_SIZE_LIMIT = 1000 # Maximum number of remote URL queries to cache
 #FIND_CACHE_DURATION = 300             # Time to cache remote metric find results
 # If the query doesn't fall entirely within the FIND_TOLERANCE window

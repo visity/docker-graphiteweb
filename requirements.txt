@@ -1,10 +1,13 @@
-django-tagging==0.3.4
-django==1.6.2
-git+git://github.com/graphite-project/graphite-web.git@57ff2e36c20d0b7d1d005cf7577f31767dfc8e2a
-python-memcached==1.54
-twisted<12.0
-gunicorn==19.3.0
-whisper==0.9.12
-pyparsing==2.0.3
-pytz==2015.4
+# The following is from the requirements file in the graphite-web project with some fixed version numbers.
+Django>=1.4,<1.9
+python-memcached==1.47
+txAMQP==0.4
+simplejson==2.1.6
+django-tagging==0.3.6
+gunicorn==19.4.2
+pytz==2015.7
+pyparsing==1.5.7
 cairocffi==0.7.2
+git+git://github.com/graphite-project/whisper.git@876f2eb966a3f3a26923601cfc6495b9ae742e94
+git+git://github.com/graphite-project/ceres.git@29c68edc8db0177d2ec73df93e4e1634d5ed006a
+whitenoise==2.0.6

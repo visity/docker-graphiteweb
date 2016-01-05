@@ -5,7 +5,9 @@ RUN       apt-get update && \
           apt-get install -y libcairo2-dev memcached python-cairo sqlite3 && \
           apt-get clean && \
           rm -rf /var/lib/apt/lists/*
-          
+
+# Take the graphite-web version from master branch end of 2015          
+RUN       pip install --install-option="--prefix=/opt/graphite" git+git://github.com/graphite-project/graphite-web.git@3c3c6113831df8c37d7a5f2f6d648756dd871196
 COPY      requirements.txt /tmp/
 RUN       pip install -r /tmp/requirements.txt
 
