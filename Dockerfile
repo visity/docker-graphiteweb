@@ -33,6 +33,7 @@ EXPOSE    80
 
 ENV       PYTHONPATH /opt/graphite/webapp
 ENV       TERM xterm
+ENV       CARBON_HOST carbon
 
 # Share volumes when serving via NGINX
 VOLUME    /opt/graphite/webapp/content

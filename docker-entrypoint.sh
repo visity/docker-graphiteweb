@@ -2,6 +2,8 @@
 
 set -e
 
+sed 's#CARBONLINK_HOSTS = .*#CARBONLINK_HOSTS = ["'"$CARBON_HOST]"':7002"]#' -i /opt/graphite/webapp/graphite/local_settings.py;
+
 # Add gunicorn as command if needed
 if [ "${1:0:1}" = '-' ]; then
 	set -- gunicorn "$@"
